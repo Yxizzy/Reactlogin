@@ -8,12 +8,13 @@ import { HomePage } from './components/HomePage';
 import { LoginPage } from './components/LoginPage';
 import { RegisterPage } from './components/RegisterPage';
 
-export class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
         const { dispatch } = this.props;
         history.listen((location, action) => {
+            dispatch(alertActions.clear());
         });
     }
 
@@ -41,3 +42,6 @@ function mapStateToProps(state) {
         alert
     };
 }
+
+const connectedApp = connect(mapStateToProps)(App);
+export { connectedApp as App }; 

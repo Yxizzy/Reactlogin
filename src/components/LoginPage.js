@@ -10,6 +10,7 @@ class LoginPage extends Component {
         super(props);
 
         // reset login status
+        this.props.dispatch(userActions.logout());
 
         this.state = {
             username: '',
@@ -22,10 +23,19 @@ class LoginPage extends Component {
     }
 
     handleChange(e) {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
     }
 
     handleSubmit(e) {
-        
+        e.preventDefault();
+
+        this.setState({ submitted: true });
+        const { username, password } = this.state;
+        const { dispatch } = this.props;
+        if (username && password) {
+            dispatch(userActions.login(username, password));
+        }
     }
 
     render() {
@@ -50,6 +60,7 @@ class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary">Login</button>
+                        <Link to="/register" className="btn btn-link">Register</Link>
                     </div>
                 </form>
             </div>
@@ -58,7 +69,10 @@ class LoginPage extends Component {
 }
 
 function mapStateToProps(state) {
-
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
 }
 
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);

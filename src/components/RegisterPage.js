@@ -22,11 +22,25 @@ class RegisterPage extends Component {
     }
 
     handleChange(event) {
-        // handle input change and dispatch register
+        const { name, value } = event.target;
+        const { user } = this.state;
+        this.setState({
+            user: {
+                ...user,
+                [name]: value
+            }
+        });
     }
 
     handleSubmit(event) {
-        // handle button click and dispatch register
+        event.preventDefault();
+
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        if (user.username && user.password) {
+            dispatch(userActions.register(user));
+        }
     }
 
     render() {
@@ -59,9 +73,12 @@ class RegisterPage extends Component {
     }
 }
 
-// complete the below function
+// completed the below function
 function mapStateToProps(state) {
-    
+    const { registering } = state.registration;
+    return {
+        registering
+    };    
 }
 
 const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);

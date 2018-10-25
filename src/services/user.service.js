@@ -1,4 +1,3 @@
-import config from 'config';
 
 export const userService = {
     login,
@@ -13,12 +12,12 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // login successful with a jwt token 
-            if (user.token) {
-                // store user details and the jwt token in local storage
+            // login successful with jwt token in the response
+            if (user.username) {
+                // store user details and the jwt token from local storage 
                 localStorage.setItem('user', JSON.stringify(user));
             }
 

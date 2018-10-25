@@ -43,17 +43,17 @@ class LoginPage extends Component {
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
-                <form name="form">
+                <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control username" name="username" />
+                        <input type="text" className="form-control username" name="username" value={username} onChange={this.handleChange} />
                         {submitted && !username &&
                             <div className="help-block">Username is required</div>
                         }
                     </div>
                     <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control password" name="password"/>
+                        <input type="password" className="form-control password" name="password" value={password} onChange={this.handleChange}/>
                         {submitted && !password &&
                             <div className="help-block">Password is required</div>
                         }

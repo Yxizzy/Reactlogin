@@ -9,7 +9,7 @@ export const userActions = {
     register
 };
 
-export function login(username, password) {
+function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
 
@@ -20,8 +20,8 @@ export function login(username, password) {
                     history.push('/');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -48,8 +48,8 @@ function register(user) {
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
